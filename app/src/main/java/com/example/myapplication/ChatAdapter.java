@@ -16,8 +16,13 @@ import org.json.JSONObject;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
     private final Context context;
+    private OnUserClickListener userClickListener;
 
-    public ChatAdapter(Context context){
+    public interface OnUserClickListener {
+        void onUserClick(String partnerId, String name);
+    }
+    public ChatAdapter(Context context, OnUserClickListener userClickListener){
+        this.userClickListener = userClickListener;
         this.context = context;
     }
 
@@ -38,11 +43,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             JSONObject userObject = userData.getJSONObject(position);
             String name = userObject.getString("Partner");
             String unread = userObject.getString("Unread");
-            String id = userObject.getString("_id");
+            String partnerId = userObject.getString("_id");
+
+            holder.partnerId = partnerId;
             holder.nameTextView.setText(name);
             holder.unread.setText(unread);
 //            holder.nameTextView.setText(name);
-//            Log.d("Something", "onBindViewHolder: SET");
+            holder.itemView.setOnClickListener(v -> {
+                if (userClickListener != null) {
+                    userClickListener.onUserClick(holder.partnerId,name);
+                }
+            });
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -58,6 +69,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
         TextView nameTextView;
         TextView textWritten, time,unread;
+        String partnerId;
         public ChatViewHolder(@NonNull View itemView) {
 
             super(itemView);

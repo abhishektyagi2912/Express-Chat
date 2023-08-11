@@ -19,7 +19,7 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
     private OnUserClickListener userClickListener;
 
     public interface OnUserClickListener {
-        void onUserClick(String partnerId);
+        void onUserClick(String partnerId, String name);
     }
 
     public UserRecyclerViewAdapter(Context context,OnUserClickListener userClickListener) {
@@ -51,7 +51,7 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
 //            Log.d("Something", "onBindViewHolder: SET");
             holder.itemView.setOnClickListener(v -> {
                 if (userClickListener != null) {
-                    userClickListener.onUserClick(partnerId);
+                    userClickListener.onUserClick(partnerId,name);
                 }
             });
         } catch (JSONException e) {

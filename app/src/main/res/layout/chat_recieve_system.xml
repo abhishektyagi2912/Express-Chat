@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    android:layout_height="wrap_content"
+    android:padding="2dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/chatImage"
+        android:layout_width="25sp"
+        android:layout_height="25sp"
+        android:scaleType="centerCrop"
+        app:riv_oval="true"
+        app:layout_constraintBottom_toBottomOf="@id/textMessage"
+        app:layout_constraintStart_toStartOf="parent"/>
+    
+    <TextView
+        android:id="@+id/textMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/background_recieve_msgs"
+        android:padding="18sp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/chatImage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Hey bro whats app"/>
+
+    <TextView
+        android:id="@+id/textDateTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#A9A7A7"
+        android:textSize="13sp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintStart_toStartOf="@id/textMessage"
+        app:layout_constraintTop_toBottomOf="@id/textMessage"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -27,7 +28,7 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ChatAdapter.OnUserClickListener{
 
     Socket socket;
     private TextView showAllTextView, personalChatTextView, groupChatTextView;
@@ -133,12 +134,95 @@ public class HomeFragment extends Fragment {
                     }
                 }
             });
+            socket.on("group-chat-list", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    if (args[0] instanceof JSONObject) {
+                        JSONObject userData = (JSONObject) args[0];
+                        Log.d("Socket Data", "Received data: " + args[0].toString());
+                        // Now you have the user data as a JSONObject
+                        // Handle the JSONObject according to your requirements
+
+                        // For example, you might want to extract user data and update the adapter
+                        try {
+                            JSONArray userArray = userData.getJSONArray("GroupChatList");
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    chatAdapter.updateData(userArray);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        } else if (Objects.equals(category, "Personal Chat")) {
+            socket.on("personal-chat-list", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    if (args[0] instanceof JSONObject) {
+                        JSONObject userData = (JSONObject) args[0];
+                        Log.d("Socket Data", "Received data: " + args[0].toString());
+                        // Now you have the user data as a JSONObject
+                        // Handle the JSONObject according to your requirements
+
+                        // For example, you might want to extract user data and update the adapter
+                        try {
+                            JSONArray userArray = userData.getJSONArray("PersonalChatList");
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    chatAdapter.updateData(userArray);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        } else if (Objects.equals(category, "Group Chat")) {
+            socket.on("group-chat-list", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    if (args[0] instanceof JSONObject) {
+                        JSONObject userData = (JSONObject) args[0];
+                        Log.d("Socket Data", "Received data: " + args[0].toString());
+                        // Now you have the user data as a JSONObject
+                        // Handle the JSONObject according to your requirements
+
+                        // For example, you might want to extract user data and update the adapter
+                        try {
+                            JSONArray userArray = userData.getJSONArray("GroupChatList");
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    chatAdapter.updateData(userArray);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
         }
 
     }
     private void initRecyclerView() {
-        chatAdapter = new ChatAdapter(requireContext());
+        chatAdapter = new ChatAdapter(requireContext(),this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(chatAdapter);
     }
+
+    @Override
+    public void onUserClick(String partnerId, String name) {
+        Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
+        chatIntent.putExtra("PARTNER_ID", partnerId);
+        chatIntent.putExtra("NAME", name);
+        startActivity(chatIntent);
+    }
+
 }

@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
 //                public void call(Object... args) {
 //                    // direct chats
 //                    // comres in array form
-//                    data.getstring("Messages");
+//                    data.getstring("Message");
 //                }
 //            });
 
@@ -183,15 +183,22 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
                 }
             });
 
-            // personal msgs
-//            JSONObject ans = new JSONObject();
-//            try {
-//                ans.put("ChatId", "64d13c0da37a601d3b9f68b1");
-//                ans.put("Content","bhen ki chut");
-//            }catch (JSONException e){
-//                e.printStackTrace();
+            // send req to personal msgs
+//        JSONObject ans = new JSONObject();
+//        try {
+//            ans.put("ChatId", id);
+//        }catch (JSONException e){
+//            e.printStackTrace();
+//        }
+//        socket.emit("fetch-personal-chat",ans);
+//
+//        // fetch request
+//        socket.on("personal-chat", new Emitter.Listener() {
+//            @Override
+//            public void call(Object... args) {
+//
 //            }
-//            socket.emit("send-personal-message",ans);
+//        });
 
             // read msg ack
             socket.on("read-message-ack", new Emitter.Listener() {
@@ -218,19 +225,6 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
                     }
                 }
             });
-
-
-
-            // search
-//            ans.put("name",bosnbg);
-//            socket.emit("search-user",Name );
-
-//            socket.on("searched-user", new Emitter.Listener() {
-//                @Override
-//                public void call(Object... args) {
-//                    array of the users maximum 8
-//                }
-//            });
 
 
 
@@ -296,6 +290,7 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
                         String email = data.getString("Email");
                         String name = data.getString("Name");
                         String userId = data.getString("Id");
+                        UserData.userId = userId;
                         Log.d("Socket", email);
                         Log.d("Socket",name);
                         Log.d("Socket",userId);

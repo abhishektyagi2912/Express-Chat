@@ -124,8 +124,6 @@ public class SearchFragment extends Fragment implements UserRecyclerViewAdapter.
             }
         });
     }
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -145,9 +143,10 @@ public class SearchFragment extends Fragment implements UserRecyclerViewAdapter.
     }
 
     @Override
-    public void onUserClick(String partnerId) {
+    public void onUserClick(String partnerId,String name) {
         Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
         chatIntent.putExtra("PARTNER_ID", partnerId);
+        chatIntent.putExtra("NAME", name);
         startActivity(chatIntent);
     }
 }
