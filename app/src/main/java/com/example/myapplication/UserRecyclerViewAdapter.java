@@ -16,8 +16,14 @@ import org.json.JSONObject;
 
 public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerViewAdapter.ViewHolder> {
     private final Context context;
+    private OnUserClickListener userClickListener;
 
-    public UserRecyclerViewAdapter(Context context) {
+    public interface OnUserClickListener {
+        void onUserClick(String partnerId);
+    }
+
+    public UserRecyclerViewAdapter(Context context,OnUserClickListener userClickListener) {
+        this.userClickListener = userClickListener;
         this.context = context;
     }
     private JSONArray userData = new JSONArray();
@@ -39,10 +45,15 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
             JSONObject userObject = userData.getJSONObject(position);
             String name = userObject.getString("Name");
             String email = userObject.getString("Email");
-
+            String partnerId = userObject.getString("_id");
             holder.nameTextView.setText(name);
             holder.emailTextView.setText(email);
 //            Log.d("Something", "onBindViewHolder: SET");
+            holder.itemView.setOnClickListener(v -> {
+                if (userClickListener != null) {
+                    userClickListener.onUserClick(partnerId);
+                }
+            });
         } catch (JSONException e) {
             e.printStackTrace();
         }

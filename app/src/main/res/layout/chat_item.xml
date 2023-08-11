@@ -42,7 +42,7 @@
         android:text="@string/get_started"/>
 
     <TextView
-        android:id="@+id/textEmail"
+        android:id="@+id/textWritten"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

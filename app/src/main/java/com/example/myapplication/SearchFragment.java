@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -26,7 +27,7 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements UserRecyclerViewAdapter.OnUserClickListener{
 
     Socket socket;
     SearchView searchView;
@@ -102,7 +103,7 @@ public class SearchFragment extends Fragment {
             public void call(Object... args) {
                 if (args[0] instanceof JSONObject) {
                     JSONObject userData = (JSONObject) args[0];
-//                    Log.d("Socket Data", "Received data: " + args[0].toString());
+                    Log.d("Socket Data", "Received data: " + args[0].toString());
                     // Now you have the user data as a JSONObject
                     // Handle the JSONObject according to your requirements
 
@@ -138,8 +139,15 @@ public class SearchFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        recyclerViewAdapter = new UserRecyclerViewAdapter(requireContext());
+        recyclerViewAdapter = new UserRecyclerViewAdapter(requireContext(),this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    @Override
+    public void onUserClick(String partnerId) {
+        Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
+        chatIntent.putExtra("PARTNER_ID", partnerId);
+        startActivity(chatIntent);
     }
 }
