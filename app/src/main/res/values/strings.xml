@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="checked">#Checked</string>
+    <string name="talk_text_and_share_as_much_as_you_want_all_of_it_for_free">Talk, text, and share as much as you want __ all of it for free</string>
+    <string name="get_started">Get Started</string>
+    <string name="i_already_have_an_account">I already have an account.</string>
+    <string name="see_you">👍See you!</string>
+    <string name="let_s_meet_8_at_j_s">Let\'s meet?🍻 8 at J\'s?</string>
+    <string name="and_you_too">And you,too!</string>
+    <string name="hola_nice_to_hear_from_you">Hola! Nice to hear from you.</string>
+    <string name="sign_in">Sign up</string>
+    <string name="email">Email</string>
+    <string name="your_email_gmail_com">your_email@gmail.com</string>
+    <string name="todo">TODO</string>
+    <string name="password">Password</string>
+    <string name="passs">************************</string>
+    <string name="don_t_have_account_sign_up_here">Don\'t have account?Sign Up here.</string>
+    <string name="sign_up">Sign in</string>
+    <string name="already_have_an_account">Already have an account</string>
+    <string name="name">Name</string>
+    <string name="your_name">your_name</string>
+    <string name="not_yet">Not yet 🙂</string>
+    <string name="then_enter_your_otp_below">No worries then enter your OTP below</string>
+    <string name="alright">👍 Alright</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="validate">Validate</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="searchicon">SearchICon</string>
+    <string name="chats">Chats</string>
+    <string name="all">All</string>
+    <string name="group">Group</string>
+    <string name="mainpageback">MainPageback</string>
+    <string name="calls">Calls</string>
+    <string name="search">Search</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+</resources>

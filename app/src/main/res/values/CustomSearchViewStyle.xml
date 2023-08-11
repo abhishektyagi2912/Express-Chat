@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+<!--        <item name="android:tint">@color/colorPrimary</item>-->
+        <item name="android:panelColorForeground">@color/white</item>
+    </style>
+
+</resources>

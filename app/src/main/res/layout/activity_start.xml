@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/start" />
+
+    <!-- Left-aligned Chat TextViews with chat bubble backgrounds -->
+
+    <TextView
+        android:id="@+id/hola_nice_to_hear_from_you"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxEms="8"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/hola_nice_to_hear_from_you"
+        android:padding="15dp"
+        android:textStyle="bold"
+        android:background="@drawable/chat_background"/>
+
+    <TextView
+        android:id="@+id/let_s_meet_8_at_j_s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxEms="6"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/orange"
+        android:text="@string/let_s_meet_8_at_j_s"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:background="@drawable/chat_background"
+        android:layout_below="@id/and_you_too" />
+
+    <!-- Right-aligned Chat TextViews with chat bubble backgrounds -->
+    <TextView
+        android:id="@+id/and_you_too"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hola_nice_to_hear_from_you"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/chat_background"
+        android:backgroundTint="@color/grey"
+        android:maxEms="8"
+        android:padding="15dp"
+        android:text="@string/and_you_too"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxEms="8"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/blue"
+        android:text="@string/see_you"
+        android:padding="15dp"
+        android:textStyle="bold"
+        android:background="@drawable/chat_background"
+        android:layout_below="@id/let_s_meet_8_at_j_s"
+        android:layout_alignParentEnd="true" />
+
+    <!-- Bottom layout containing the start button and "already have an account" text -->
+    <RelativeLayout
+        android:id="@+id/bottomSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/checked"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/heading"
+            android:layout_marginTop="10dp"
+            android:maxEms="15"
+            android:text="@string/talk_text_and_share_as_much_as_you_want_all_of_it_for_free"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/centerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/smallText"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/getStarted"
+                style="@style/ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:onClick="getstart"
+                android:text="@string/get_started" />
+
+            <TextView
+                android:id="@+id/Already"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:minHeight="48dp"
+                android:onClick="already"
+                android:text="@string/i_already_have_an_account"
+                android:textColor="#2B2B2B"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
