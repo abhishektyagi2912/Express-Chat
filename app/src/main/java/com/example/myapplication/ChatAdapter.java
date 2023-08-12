@@ -41,7 +41,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     public void onBindViewHolder(@NonNull ChatAdapter.ChatViewHolder holder, int position) {
         try {
             JSONObject userObject = userData.getJSONObject(position);
-            String name = userObject.getString("Partner");
+
+            String name;
+            if (userObject.has("Partner")) {
+                // Personal chat
+                name = userObject.getString("Partner");
+            } else if (userObject.has("Name")) {
+                // Group chat
+                name = userObject.getString("Name");
+            } else {
+                name = "Unknown"; // Handle the case where neither key is present
+            }
+
+//            String name = userObject.getString("Partner");
             String unread = userObject.getString("Unread");
             String partnerId = userObject.getString("_id");
 

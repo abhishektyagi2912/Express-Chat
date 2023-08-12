@@ -20,10 +20,14 @@ public class ChatActivityAdapter extends RecyclerView.Adapter<ChatActivityAdapte
     private static final int LAYOUT_SENT = 1;
     private static final int LAYOUT_RECEIVED = 2;
 
-    public ChatActivityAdapter(Context context, List<Message> messageList) {
+    private String chatId;
+
+    public ChatActivityAdapter(Context context, List<Message> messageList, String chatId) {
         this.context = context;
         this.messageList = messageList;
+        this.chatId = chatId;
     }
+
 
     @NonNull
     @Override
@@ -51,6 +55,11 @@ public class ChatActivityAdapter extends RecyclerView.Adapter<ChatActivityAdapte
     public int getItemViewType(int position) {
         return messageList.get(position).isSentByUser() ? LAYOUT_SENT : LAYOUT_RECEIVED;
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(String chatId, String userId);
+    }
+
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
         private TextView messageContent;
