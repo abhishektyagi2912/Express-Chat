@@ -63,6 +63,7 @@ public class SearchFragment extends Fragment implements UserRecyclerViewAdapter.
                 JSONObject data = new JSONObject();
                 try {
                 data.put("Name",query);
+                data.put("Type","Search");
                 }catch (JSONException e){
                 e.printStackTrace();
                 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".HomeFragment"
     android:background="@color/black">
 
     <Toolbar
@@ -63,6 +63,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/include"
         android:layout_marginTop="1dp"
+        android:layout_marginBottom="50dp"
         android:background="@color/black">
 
     </androidx.viewpager2.widget.ViewPager2>

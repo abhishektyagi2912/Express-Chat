@@ -1,47 +1,29 @@
 package com.example.myapplication;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Objects;
-
 import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
 
-
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment {
 
     Socket socket;
     ChatAdapter chatAdapter;
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     FragmentAdapter fragmentAdapter;
-
-//    FragmentA
     private final String[] titles = new String[]{"Personal", "Group", "Self"};
+    private int bottomNavHeight; // To store the height of the BottomNavigationView
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,20 +44,4 @@ public class HomeFragment extends Fragment{
 
         return view;
     }
-
-
-//    private void initRecyclerView() {
-//        chatAdapter = new ChatAdapter(requireContext(),this);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        recyclerView.setAdapter(chatAdapter);
-//    }
-//
-//    @Override
-//    public void onUserClick(String partnerId, String name) {
-//        Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
-//        chatIntent.putExtra("PARTNER_ID", partnerId);
-//        chatIntent.putExtra("NAME", name);
-//        startActivity(chatIntent);
-//    }
-
 }
