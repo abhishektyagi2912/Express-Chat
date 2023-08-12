@@ -40,84 +40,32 @@
 
     </Toolbar>
 
-    <LinearLayout
-        android:id="@+id/selection_type"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/include"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mainActivity_toolbar"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center">
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@+id/mainActivity_toolbar"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/black"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="3.5dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="#808080"
+        tools:ignore="SpeakableTextPresentCheck"
+        app:tabTextAppearance="@style/CustomTabTextAppearance">
+</com.google.android.material.tabs.TabLayout>
 
-        <TextView
-            android:id="@+id/SHOW_ALL"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/all"
-            android:textColor="@color/white"
-            android:background="@drawable/black_border"
-            android:paddingStart="13dp"
-            android:paddingEnd="13dp"
-            android:paddingTop="11dp"
-            android:paddingBottom="11dp"
-            android:textSize="15sp"
-            android:layout_margin="5dp"
-            android:textStyle="bold"/>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="0dp"/> <!-- Spacer between TextViews -->
-
-        <TextView
-            android:id="@+id/Personal_Chat"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Personal"
-            android:textSize="15sp"
-            android:textColor="@color/white"
-            android:background="@drawable/black_border"
-            android:paddingStart="13dp"
-            android:paddingEnd="13dp"
-            android:paddingTop="11dp"
-            android:paddingBottom="11dp"
-            android:layout_margin="5dp"
-            android:textStyle="bold"/>
-
-        <View
-            android:layout_width="2dp"
-            android:layout_height="0dp"/> <!-- Spacer between TextViews -->
-
-        <TextView
-            android:id="@+id/Group_Chat"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/group"
-            android:textColor="@color/white"
-            android:background="@drawable/black_border"
-            android:textSize="15sp"
-            android:paddingStart="13dp"
-            android:paddingEnd="13dp"
-            android:paddingTop="11dp"
-            android:paddingBottom="11dp"
-            android:textStyle="bold"/>
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mainActivity_RecyclerView"
+<androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/selection_type"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp" />
+        android:layout_below="@+id/include"
+        android:layout_marginTop="1dp"
+        android:background="@color/black">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
 
 </RelativeLayout>

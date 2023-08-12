@@ -183,78 +183,6 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
                 }
             });
 
-            // send req to personal msgs
-//        JSONObject ans = new JSONObject();
-//        try {
-//            ans.put("ChatId", id);
-//        }catch (JSONException e){
-//            e.printStackTrace();
-//        }
-//        socket.emit("fetch-personal-chat",ans);
-//
-//        // fetch request
-//        socket.on("personal-chat", new Emitter.Listener() {
-//            @Override
-//            public void call(Object... args) {
-//
-//            }
-//        });
-
-            // read msg ack
-            socket.on("read-message-ack", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    if (args.length > 0) {
-                        // Check if the data is a JSON object
-                        if (args[0] instanceof JSONObject) {
-                            // Access the "accessToken" field and log its value
-                            JSONObject data = (JSONObject) args[0];
-                            try {
-                                String ChatId = data.getString("ChatId");
-                                Log.d("Socket","read-msg come");
-                                Log.e("Socket.IO", "Chat Id" + ChatId);
-
-                            } catch (JSONException e) {
-                                // Handle JSON parsing error if necessary
-                                Log.e("Socket.IO", "JSON parsing error: " + e.getMessage());
-                            }
-                        } else {
-                            // The data is not a JSON object
-                            Log.e("Socket.IO", "Received data is not a JSON object");
-                        }
-                    }
-                }
-            });
-
-
-
-            // personal msg receive
-//            socket.on("receive-personal-message", new Emitter.Listener() {
-//                @Override
-//                public void call(Object... args) {
-//                    if (args.length > 0) {
-//                        // Check if the data is a JSON object
-//                        if (args[0] instanceof JSONObject) {
-//                            // Access the "accessToken" field and log its value
-//                            JSONObject data = (JSONObject) args[0];
-//                            try {
-//                                 String ChatId = data.getString("ChatId");
-//                                String Msg = data.getString("Content");
-//                                Log.d("Socket","read-msg come");
-//                                Log.e("Socket.IO", "Msg" + Msg);
-//
-//                            } catch (JSONException e) {
-//                                // Handle JSON parsing error if necessary
-//                                Log.e("Socket.IO", "JSON parsing error: " + e.getMessage());
-//                            }
-//                        } else {
-//                            // The data is not a JSON object
-//                            Log.e("Socket.IO", "Received data is not a JSON object");
-//                        }
-//                    }
-//                }
-//            });
-
             // here socket connect request is connect
             runOnUiThread(() -> onConnected(socket));
         } catch (IOException e) {
@@ -291,9 +219,9 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
                         String name = data.getString("Name");
                         String userId = data.getString("Id");
                         UserData.userId = userId;
-                        Log.d("Socket", email);
-                        Log.d("Socket",name);
-                        Log.d("Socket",userId);
+//                        Log.d("Socket", email);
+//                        Log.d("Socket",name);
+//                        Log.d("Socket",userId);
 
                     } catch (JSONException e) {
                         // Handle JSON parsing error if necessary

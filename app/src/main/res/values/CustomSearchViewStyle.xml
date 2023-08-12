@@ -7,4 +7,8 @@
         <item name="android:panelColorForeground">@color/white</item>
     </style>
 
+    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">15sp</item> <!-- Change this text size as needed -->
+    </style>
+
 </resources>

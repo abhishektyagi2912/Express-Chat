@@ -26,7 +26,7 @@ import java.util.TimeZone;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements ChatActivityAdapter.OnItemClickListener{
 
     ImageView chat_activity_back,chat_send;
     TextView chat_username;
@@ -74,13 +74,13 @@ public class ChatActivity extends AppCompatActivity {
         socket = SocketSingleton.getSocketInstance(this);
 
         String userId = UserData.userId;
-        Log.d("socket", userId);
+//        Log.d("socket", userId);
         id = getIntent().getStringExtra("PARTNER_ID");  // chat id this is
 //        Log.d("socket", id);
         String name = getIntent().getStringExtra("NAME");
 
 
-        adapter = new ChatActivityAdapter(this, messageList);
+        adapter = new ChatActivityAdapter(this, messageList,id);
         recyclerView.setAdapter(adapter);
 
         chat_username.setText(name);
@@ -128,6 +128,42 @@ public class ChatActivity extends AppCompatActivity {
                                     recyclerView.scrollToPosition(messageList.size() - 1);
                                 }
                             });
+                        } catch (JSONException e) {
+                            // Handle JSON parsing error if necessary
+                            Log.e("Socket.IO", "JSON parsing error: " + e.getMessage());
+                        }
+                    } else {
+                        // The data is not a JSON object
+                        Log.e("Socket.IO", "Received data is not a JSON object");
+                    }
+                }
+            }
+        });
+
+        // send msg to read
+        JSONObject acknowledgementData = new JSONObject();
+        try {
+            acknowledgementData.put("ChatId", id);
+            Log.d("socket", String.valueOf(acknowledgementData));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        socket.emit("read-personal-message", acknowledgementData);
+
+        // read msg ack
+        socket.on("read-message-ack", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                if (args.length > 0) {
+                    // Check if the data is a JSON object
+                    if (args[0] instanceof JSONObject) {
+                        // Access the "accessToken" field and log its value
+                        JSONObject data = (JSONObject) args[0];
+                        try {
+                            String ChatId = data.getString("ChatId");
+//                            Log.d("Socket","read-msg come");
+                            Log.e("Socket.IO", "Chat Id" + ChatId);
+
                         } catch (JSONException e) {
                             // Handle JSON parsing error if necessary
                             Log.e("Socket.IO", "JSON parsing error: " + e.getMessage());
@@ -207,6 +243,12 @@ public class ChatActivity extends AppCompatActivity {
             JSONArray messagesArray = chatData.getJSONArray("Messages");
             List<Message> newMessages = new ArrayList<>();
 
+            if (messagesArray.length() == 0) {
+                // No messages in the conversation, add a placeholder message if desired
+                // For example, add a message that says "No messages yet"
+                return;
+            }
+
             for (int i = messagesArray.length() - 1; i >= 0; i--) {
                 JSONObject messageObject = messagesArray.getJSONObject(i);
                 String senderId = messageObject.getString("Sender");
@@ -228,12 +270,14 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
 
-            // Add new messages to the list and notify adapter
-            messageList.addAll(0,newMessages);
-            adapter.notifyDataSetChanged();
+            if (newMessages.size() > 0) {
+                // Add new messages to the list and notify adapter
+                messageList.addAll(0, newMessages);
+                adapter.notifyDataSetChanged();
 
-            // Scroll to the bottom, which is now the latest message
-            recyclerView.smoothScrollToPosition(messageList.size() - 1);
+                // Scroll to the bottom, which is now the latest message
+                recyclerView.smoothScrollToPosition(messageList.size() - 1);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -271,4 +315,21 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-}
+    @Override
+    public void onItemClick(String chatId, String userId) {
+        sendAcknowledgement(chatId);
+    }
+
+    private void sendAcknowledgement(String chatId) {
+        // Implement the code to send the acknowledgement using the chat ID
+        Log.d("socket", chatId);
+//        JSONObject acknowledgementData = new JSONObject();
+//        try {
+//            acknowledgementData.put("ChatId", chatId);
+//            Log.d("socket", String.valueOf(acknowledgementData));
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        socket.emit("read-personal-message", acknowledgementData);
+        }
+    }
