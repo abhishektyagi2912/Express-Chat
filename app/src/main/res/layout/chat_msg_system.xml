@@ -16,7 +16,7 @@
         android:background="@drawable/background_sent_msgs"
         android:padding="18sp"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/get_started"
         tools:ignore="MissingConstraints" />
