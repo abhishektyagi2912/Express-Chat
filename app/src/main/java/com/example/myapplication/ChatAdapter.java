@@ -60,6 +60,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             holder.partnerId = partnerId;
             holder.nameTextView.setText(name);
             holder.unread.setText(unread);
+            // Set visibility of the unread text view based on the unread count
+            holder.unread.setVisibility(Integer.parseInt(unread) > 0 ? View.VISIBLE : View.GONE);
+
 //            holder.nameTextView.setText(name);
             holder.itemView.setOnClickListener(v -> {
                 if (userClickListener != null) {
