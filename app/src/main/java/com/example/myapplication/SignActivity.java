@@ -46,7 +46,7 @@ public class SignActivity extends AppCompatActivity {
         EditText passwordEditText = findViewById(R.id.SignInPassword);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://bharatchat.onrender.com/")
+                .baseUrl("https://expresschat-v6mg.onrender.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

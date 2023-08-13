@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
         /// Api link retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://bharatchat.onrender.com/")
+                .baseUrl("https://expresschat-v6mg.onrender.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -175,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void resendOTP(String email,String app){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://bharatchat.onrender.com/")
+                .baseUrl("https://expresschat-v6mg.onrender.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

@@ -72,7 +72,7 @@ public class VerifyActivity extends AppCompatActivity {
     // this will work if user come to the verify page first
     private void verifyOTPWithServer(String email, String otp) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://bharatchat.onrender.com/")
+                .baseUrl("https://expresschat-v6mg.onrender.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @POST("login") // Replace with your API endpoint
+    @POST("login")
     Call<LoginResponse> login(@Body Map<String, String> requestBody);
 
     @POST("signup")
@@ -26,7 +26,6 @@ public interface ApiService {
             @Query("token") String token,
             @Query("source") String source
     );
-
     // for resend
     @POST("resend")
     Call<ResendResponse> resendOTP(@Body Map<String, String> resendOTP);
