@@ -76,7 +76,7 @@ public class ChatActivity extends AppCompatActivity implements ChatActivityAdapt
         String userId = UserData.userId;
 //        Log.d("socket", userId);
         id = getIntent().getStringExtra("PARTNER_ID");  // chat id this is
-//        Log.d("socket", id);
+        Log.d("chat id", id);
         String name = getIntent().getStringExtra("NAME");
 
 
@@ -96,6 +96,14 @@ public class ChatActivity extends AppCompatActivity implements ChatActivityAdapt
             e.printStackTrace();
         }
         socket.emit("fetch-personal-chat", fetch);
+
+        JSONObject data = new JSONObject();
+        try {
+            data.put("ChatId", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        socket.emit("fetch-group-chat", data);
 
         // personal msg receive
 // personal msg receive
@@ -217,7 +225,8 @@ public class ChatActivity extends AppCompatActivity implements ChatActivityAdapt
         }
     }
     private void setUpSocketListeners(String userId) {
-        // Listen for incoming messages
+        // fetched the chat for incoming messages
+        Log.d("socket", userId);
         socket.on("personal-chat", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -297,13 +306,16 @@ public class ChatActivity extends AppCompatActivity implements ChatActivityAdapt
     @Override
     protected void onResume() {
         super.onResume();
-        JSONObject fetch = new JSONObject();
-        try {
-            fetch.put("ChatId", id);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (!socket.connected()) {
+            socket.connect();
         }
-        socket.emit("fetch-personal-chat", fetch);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!socket.connected()) {
+            socket.connect();
+        }
     }
     private String getCurrentTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
@@ -322,7 +334,7 @@ public class ChatActivity extends AppCompatActivity implements ChatActivityAdapt
 
     private void sendAcknowledgement(String chatId) {
         // Implement the code to send the acknowledgement using the chat ID
-        Log.d("socket", chatId);
+//        Log.d("socket", chatId);
 //        JSONObject acknowledgementData = new JSONObject();
 //        try {
 //            acknowledgementData.put("ChatId", chatId);

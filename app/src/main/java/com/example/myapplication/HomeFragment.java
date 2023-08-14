@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.app.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +23,7 @@ public class HomeFragment extends Fragment {
     ChatAdapter chatAdapter;
     TabLayout tabLayout;
     ViewPager2 viewPager2;
+    ImageView imageView;
     FragmentAdapter fragmentAdapter;
     private final String[] titles = new String[]{"Personal", "Group", "Self"};
     private int bottomNavHeight; // To store the height of the BottomNavigationView
@@ -35,13 +38,21 @@ public class HomeFragment extends Fragment {
 
         viewPager2 = view.findViewById(R.id.view_pager);
         tabLayout = view.findViewById(R.id.include);
+        imageView = view.findViewById(R.id.MainPageBack);
+
 
         fragmentAdapter = new FragmentAdapter(getActivity());
         viewPager2.setAdapter(fragmentAdapter);
 
         new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
-
-
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
+            }
+        });
         return view;
     }
 }

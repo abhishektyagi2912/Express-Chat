@@ -29,7 +29,7 @@ public class SocketSingleton {
             options.query = "accessToken=" + accessToken + "&refreshToken=" + refreshToken + "&source=app";
 
             try {
-                socketInstance = IO.socket("https://bharatchat.onrender.com", options);
+                socketInstance = IO.socket("https://expresschat-v6mg.onrender.com", options);
                 socketInstance.connect();
             } catch (URISyntaxException e) {
                 e.printStackTrace();

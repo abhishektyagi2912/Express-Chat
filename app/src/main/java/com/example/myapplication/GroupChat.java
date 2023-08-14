@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,6 +26,7 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
     Socket socket;
     ChatAdapter chatAdapter;
     private RecyclerView recyclerView;
+    private boolean isCachedDataLoaded = false; // Add this variable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,12 +47,13 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
     private void handleChatList(Object data, String jsonArrayKey) {
         if (data instanceof JSONObject) {
             JSONObject userData = (JSONObject) data;
-            Log.d("Socket Data", "Received data: " + data.toString());
+//            Log.d("Socket Data", "Received data: " + data.toString());
 
             // Update the RecyclerView based on the received data
             try {
                 JSONArray userArray = userData.getJSONArray(jsonArrayKey);
                 // Ensure the RecyclerView update is done on the main UI thread
+                saveDataToCache(userArray);
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -63,15 +67,45 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
     }
     private void initRecyclerView() {
         chatAdapter = new ChatAdapter(requireContext(),this);
+        if (!isCachedDataLoaded) {
+            JSONArray cachedUserArray = loadDataFromCache();
+            if (cachedUserArray != null) {
+                chatAdapter.updateData(cachedUserArray);
+                isCachedDataLoaded = true; // Mark cached data as loaded
+            }
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(chatAdapter);
     }
+    // here id is chat id
     @Override
     public void onUserClick(String partnerId, String name) {
         Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
         chatIntent.putExtra("PARTNER_ID", partnerId);
         chatIntent.putExtra("NAME", name);
         startActivity(chatIntent);
+    }
+
+    private void saveDataToCache(JSONArray userArray) {
+        // Save the fetched data to SharedPreferences
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("GroupData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("groupArray", userArray.toString());
+        editor.apply();
+    }
+
+    private JSONArray loadDataFromCache() {
+        // Load the cached data from SharedPreferences
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("GroupData", Context.MODE_PRIVATE);
+        String cachedData = sharedPreferences.getString("groupArray", null);
+        if (cachedData != null) {
+            try {
+                return new JSONArray(cachedData);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     @Override
@@ -83,10 +117,8 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        if (socket.connected()) {
-            socket.disconnect();
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        socket.off("group-chat-list");
     }
 }

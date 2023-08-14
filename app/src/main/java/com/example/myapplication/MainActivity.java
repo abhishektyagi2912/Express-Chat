@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
             String encodedValue2 = URLEncoder.encode(value2, "UTF-8");
 
             // Save the cookies to CookieManager
-            CookieManager.getInstance().setCookie("https://bharatchat.onrender.com", "accessToken=" + encodedValue1);
-            CookieManager.getInstance().setCookie("https://bharatchat.onrender.com", "refreshToken=" + encodedValue2);
+            CookieManager.getInstance().setCookie("https://expresschat-v6mg.onrender.com", "accessToken=" + encodedValue1);
+            CookieManager.getInstance().setCookie("https://expresschat-v6mg.onrender.com", "refreshToken=" + encodedValue2);
 
             socket = SocketSingleton.getSocketInstance(this);
 

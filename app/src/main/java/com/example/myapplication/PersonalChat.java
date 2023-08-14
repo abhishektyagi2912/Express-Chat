@@ -26,6 +26,7 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
     Socket socket;
     ChatAdapter chatAdapter;
     private RecyclerView recyclerView;
+    private boolean isCachedDataLoaded = false; // Add this variable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
     private void handleChatList(Object data, String jsonArrayKey) {
         if (data instanceof JSONObject) {
             JSONObject userData = (JSONObject) data;
-//            Log.d("Socket Data", "Received data: " + data.toString());
+            Log.d("Socket Data", "Received data: " + data.toString());
             // Update the RecyclerView based on the received data
             try {
                 JSONArray userArray = userData.getJSONArray(jsonArrayKey);
@@ -68,11 +69,13 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
         chatAdapter = new ChatAdapter(requireContext(),this);
 
         // Load cached data if available
-        JSONArray cachedUserArray = loadDataFromCache();
-        if (cachedUserArray != null) {
-            chatAdapter.updateData(cachedUserArray);
+        if (!isCachedDataLoaded) {
+            JSONArray cachedUserArray = loadDataFromCache();
+            if (cachedUserArray != null) {
+                chatAdapter.updateData(cachedUserArray);
+                isCachedDataLoaded = true; // Mark cached data as loaded
+            }
         }
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(chatAdapter);
     }
@@ -109,13 +112,14 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
     @Override
     public void onResume() {
         super.onResume();
-        socket.connect();
+        if (!socket.connected()) {
+            socket.connect();
+        }
     }
-
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        socket.disconnect();
+    public void onDestroy() {
+        super.onDestroy();
         socket.off("personal-chat-list");
     }
+
 }
