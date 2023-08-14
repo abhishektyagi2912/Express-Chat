@@ -152,7 +152,7 @@ public class ChatActivity extends AppCompatActivity implements ChatActivityAdapt
         JSONObject acknowledgementData = new JSONObject();
         try {
             acknowledgementData.put("ChatId", id);
-            Log.d("socket", String.valueOf(acknowledgementData));
+//            Log.d("socket", String.valueOf(acknowledgementData));
         } catch (JSONException e) {
             e.printStackTrace();
         }
