@@ -115,6 +115,13 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
             socket.connect();
         }
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (!socket.connected()) {
+            socket.connect();
+        }
+    }
 
     @Override
     public void onDestroy() {

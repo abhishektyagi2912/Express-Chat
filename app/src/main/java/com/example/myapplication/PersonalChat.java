@@ -116,6 +116,15 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
             socket.connect();
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (!socket.connected()) {
+            socket.connect();
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

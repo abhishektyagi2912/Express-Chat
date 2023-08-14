@@ -219,6 +219,8 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
                         String name = data.getString("Name");
                         String userId = data.getString("Id");
                         UserData.userId = userId;
+                        UserData.email = email;
+                        UserData.name = name;
 //                        Log.d("Socket", email);
 //                        Log.d("Socket",name);
 //                        Log.d("Socket",userId);
