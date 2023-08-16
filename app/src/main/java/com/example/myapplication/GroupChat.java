@@ -47,7 +47,7 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
     private void handleChatList(Object data, String jsonArrayKey) {
         if (data instanceof JSONObject) {
             JSONObject userData = (JSONObject) data;
-//            Log.d("Socket Data", "Received data: " + data.toString());
+            Log.d("Group Data", "Received data: " + data.toString());
 
             // Update the RecyclerView based on the received data
             try {
@@ -83,6 +83,7 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
         Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
         chatIntent.putExtra("PARTNER_ID", partnerId);
         chatIntent.putExtra("NAME", name);
+        chatIntent.putExtra("Type","Group");
         startActivity(chatIntent);
     }
 

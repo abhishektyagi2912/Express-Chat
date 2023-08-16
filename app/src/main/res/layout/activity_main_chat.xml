@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ChatActivity">
+    tools:context=".MainChatActivity">
 
     <Toolbar
         android:id="@+id/chat_activity_toolbar"
@@ -83,5 +83,29 @@
         android:layout_alignParentEnd="true"
         app:tint="@color/grey"
         android:contentDescription="@string/tod" />
+
+    <Button
+        android:id="@+id/start_chat_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/start_chat"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/white"
+        android:background="@drawable/black_border"
+        android:visibility="gone" /> <!-- Initially hidden -->
+
+    <TextView
+        android:id="@+id/start_chat_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="italic"
+        android:textSize="20sp"
+        android:layout_above="@id/start_chat_button"
+        android:text="@string/start_the_chat_with_the_user"
+        android:textColor="@color/white"
+        android:visibility="gone" /> <!-- Initially hidden -->
 
 </RelativeLayout>

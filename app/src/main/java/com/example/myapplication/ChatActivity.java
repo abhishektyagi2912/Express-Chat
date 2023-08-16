@@ -334,14 +334,14 @@ public class ChatActivity extends AppCompatActivity implements ChatActivityAdapt
 
     private void sendAcknowledgement(String chatId) {
         // Implement the code to send the acknowledgement using the chat ID
-//        Log.d("socket", chatId);
-//        JSONObject acknowledgementData = new JSONObject();
-//        try {
-//            acknowledgementData.put("ChatId", chatId);
-//            Log.d("socket", String.valueOf(acknowledgementData));
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        socket.emit("read-personal-message", acknowledgementData);
+        Log.d("socket", chatId);
+        JSONObject acknowledgementData = new JSONObject();
+        try {
+            acknowledgementData.put("ChatId", chatId);
+            Log.d("socket", String.valueOf(acknowledgementData));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        socket.emit("read-personal-message", acknowledgementData);
         }
     }

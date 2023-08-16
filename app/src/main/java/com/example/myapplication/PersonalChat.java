@@ -82,9 +82,10 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
     }
     @Override
     public void onUserClick(String partnerId, String name) {
-        Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
+        Intent chatIntent = new Intent(getActivity(), MainChatActivity.class);
         chatIntent.putExtra("PARTNER_ID", partnerId);
         chatIntent.putExtra("NAME", name);
+        chatIntent.putExtra("Type","Personal");
         startActivity(chatIntent);
     }
 
