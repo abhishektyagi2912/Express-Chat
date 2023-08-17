@@ -80,7 +80,7 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
     // here id is chat id
     @Override
     public void onUserClick(String partnerId, String name) {
-        Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
+        Intent chatIntent = new Intent(getActivity(), MainChatActivity.class);
         chatIntent.putExtra("PARTNER_ID", partnerId);
         chatIntent.putExtra("NAME", name);
         chatIntent.putExtra("Type","Group");

@@ -60,6 +60,8 @@ public class MainChatActivity extends AppCompatActivity {
             RequestPersonalMessages(id);
         } else if (Objects.equals(type, "Group")) {
             RequestGroupMessages(id);
+        } else if (Objects.equals(type, "Self")) {
+            RequestSelfMessages(UserData.userId);
         }
 
     }
@@ -236,6 +238,8 @@ public class MainChatActivity extends AppCompatActivity {
     }
 
     private void RequestGroupMessages(String ChatId) {
+    }
+    private void RequestSelfMessages(String userId) {
     }
     private boolean isMessageInList(Message message) {
         for (Message existingMessage : messageList) {
