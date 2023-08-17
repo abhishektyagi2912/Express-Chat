@@ -39,19 +39,19 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
         socket.on("group-chat-list", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                handleChatList(args[0], "GroupChatList");
+                handleChatList(args[0]);
             }
         });
         return view;
     }
-    private void handleChatList(Object data, String jsonArrayKey) {
+    private void handleChatList(Object data) {
         if (data instanceof JSONObject) {
             JSONObject userData = (JSONObject) data;
             Log.d("Group Data", "Received data: " + data.toString());
 
             // Update the RecyclerView based on the received data
             try {
-                JSONArray userArray = userData.getJSONArray(jsonArrayKey);
+                JSONArray userArray = userData.getJSONArray("GroupChatList");
                 // Ensure the RecyclerView update is done on the main UI thread
                 saveDataToCache(userArray);
                 requireActivity().runOnUiThread(new Runnable() {

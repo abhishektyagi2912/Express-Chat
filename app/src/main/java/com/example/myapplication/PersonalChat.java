@@ -48,11 +48,12 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
     private void handleChatList(Object data, String jsonArrayKey) {
         if (data instanceof JSONObject) {
             JSONObject userData = (JSONObject) data;
-            Log.d("Socket Data", "Received data: " + data.toString());
+            Log.d("Personal Data", "Received data: " + data.toString());
+
             // Update the RecyclerView based on the received data
             try {
                 JSONArray userArray = userData.getJSONArray(jsonArrayKey);
-                Log.d("Personal chat", "handleChatList: "+userArray);
+//                Log.d("Personal chat", "handleChatList: "+userArray);
                 saveDataToCache(userArray);
                 // Ensure the RecyclerView update is done on the main UI thread
                 requireActivity().runOnUiThread(new Runnable() {
