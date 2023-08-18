@@ -293,8 +293,113 @@ public class MainChatActivity extends AppCompatActivity {
             }
         });
 
-        // send msgs with text
+        // send msg with text
         binding.chatSend.setOnClickListener(v -> sendMessage(ChatId,UserData.userId));
+    }
+
+    // group chat requests
+    private void RequestGroupMessages(String ChatId) {
+
+        // chat is open it's mean chat is read
+        JSONObject open = new JSONObject();
+        try {
+            open.put("ChatId", ChatId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        socket.emit("read-group-message", open);
+        // receive that msg is read or not
+
+//        socket
+
+        //fetch group chat
+        JSONObject data = new JSONObject();
+        try {
+            data.put("ChatId", ChatId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        socket.emit("fetch-group-chat", data);
+
+        socket.on("group-chat", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                if (args.length > 0) {
+                    JSONObject chatData  = (JSONObject) args[0];
+                    Log.d("Socket Data", "chat activity" + args[0].toString());
+                    // Perform UI updates on the main thread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            handleGroupChat(chatData);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    // self msg request
+    private void RequestSelfMessages(String userId) {
+        // Send request to fetch personal chat
+        JSONObject fetch = new JSONObject();
+        try {
+            fetch.put("", "");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        socket.emit("fetch-self-chat", fetch);
+
+        socket.on("self-chat", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                if (args.length > 0) {
+                    JSONObject chatData  = (JSONObject) args[0];
+//                    Log.d("Socket Data", "chat activity" + args[0].toString());
+                    // Perform UI updates on the main thread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            handlePersonalChat(chatData);
+                        }
+                    });
+                }
+            }
+        });
+        binding.chatSend.setOnClickListener(v->sendSelfMessage(userId));
+    }
+    // send self msg
+    private void sendSelfMessage(String userId) {
+        String messageText = binding.chatEditText.getText().toString().trim();
+        if (!messageText.isEmpty()) {
+            // Assuming you have a sender ID, you can modify this accordingly
+            JSONObject ans = new JSONObject();
+            try {
+                ans.put("Content",messageText);
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+            socket.emit("send-self-message",ans);
+
+            // Clear the input field
+            binding.chatEditText.getText().clear();
+
+            String currentTime = getCurrentTime(); // Implement getCurrentTime() method to HH:mm format
+            Message message = new Message(userId, messageText, currentTime, true, R.layout.chat_msg_system);
+
+            // Add the new message to the beginning of the list and notify the adapter
+            messageList.add(message);
+            adapter.notifyItemInserted(messageList.size() - 1);
+
+            // Reload chat history after sending a message
+            JSONObject fetch = new JSONObject();
+            try {
+                fetch.put("","" );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            socket.emit("fetch-self-chat", fetch);
+        }
     }
     private void handlePersonalChat(JSONObject chatData){
         try {
@@ -341,54 +446,8 @@ public class MainChatActivity extends AppCompatActivity {
         }
     }
 
-    // group chat requests
-    private void RequestGroupMessages(String ChatId) {
-
-        // chat is open it's mean chat is read
-        JSONObject open = new JSONObject();
-        try {
-            open.put("ChatId", ChatId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        socket.emit("read-group-message", open);
-        // receive that msg is read or not
-
-//        socket
-
-        //fetch group chat
-        JSONObject data = new JSONObject();
-        try {
-            data.put("ChatId", ChatId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        socket.emit("fetch-group-chat", data);
-
-        socket.on("group-chat", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                if (args.length > 0) {
-                    JSONObject chatData  = (JSONObject) args[0];
-                    Log.d("Socket Data", "chat activity" + args[0].toString());
-                    // Perform UI updates on the main thread
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            handleGroupChat(chatData);
-                        }
-                    });
-                }
-            }
-        });
-    }
-
     private void handleGroupChat(JSONObject chatData) {
 
-    }
-
-    // self msg request
-    private void RequestSelfMessages(String userId) {
     }
     // send messages
     private void sendMessage(String id, String userId){
