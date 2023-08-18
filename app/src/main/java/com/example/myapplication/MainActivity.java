@@ -146,42 +146,6 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
 //                }
 //            });
 
-              // ssend req to personal msgs
-//            socket.emit("fetch-personal-chat",json body empty chat id ChatId);
-
-            // fetch personal chat
-//            socket.on("personal-chat", new Emitter.Listener() {
-//                @Override
-//                public void call(Object... args) {
-////                    array fo json come
-////                    array k element m Sender ,senderId or Content , Timestamp, ReadStatus<key user id dono ki or status dono ka ayega > hoga isme
-//                }
-//            });
-
-            // chat id here exists
-            socket.on("create-personal-chat-success", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    if (args.length > 0) {
-                        // Check if the data is a JSON object
-                        if (args[0] instanceof JSONObject) {
-                            // Access the "accessToken" field and log its value
-                            JSONObject data = (JSONObject) args[0];
-                            try {
-                                String ChatId = data.getString("ChatId");
-                                Log.e("Socket.IO", "Content" + ChatId);
-
-                            } catch (JSONException e) {
-                                // Handle JSON parsing error if necessary
-                                Log.e("Socket.IO", "JSON parsing error: " + e.getMessage());
-                            }
-                        } else {
-                            // The data is not a JSON object
-                            Log.e("Socket.IO", "Received data is not a JSON object");
-                        }
-                    }
-                }
-            });
 
             // here socket connect request is connect
             runOnUiThread(() -> onConnected(socket));
