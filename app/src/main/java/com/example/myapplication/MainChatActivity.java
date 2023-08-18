@@ -481,7 +481,6 @@ public class MainChatActivity extends AppCompatActivity {
                 // Add new messages to the list and notify adapter
                 messageList.addAll(0,newMessages);
                 adapter.notifyDataSetChanged();
-
                 // Scroll to the bottom, which is now the latest message
                 binding.chatActivityRecycler.smoothScrollToPosition(messageList.size() - 1);
             }
