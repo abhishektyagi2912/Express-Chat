@@ -34,7 +34,7 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
         View view = inflater.inflate(R.layout.fragment_personal_chat, container, false);
         socket = SocketSingleton.getSocketInstance(requireContext());
         recyclerView = view.findViewById(R.id.personal_chat_recycler);
-        initRecyclerView();
+
 
         socket.on("personal-chat-list", new Emitter.Listener() {
             @Override
@@ -42,7 +42,7 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
                 handleChatList(args[0], "PersonalChatList");
             }
         });
-
+        initRecyclerView();
         return view;
     }
     private void handleChatList(Object data, String jsonArrayKey) {
@@ -124,13 +124,7 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
     public void onPause() {
         super.onPause();
         if (!socket.connected()) {
-            socket.connect();
+            socket.disconnect();
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        socket.off("personal-chat-list");
     }
 }

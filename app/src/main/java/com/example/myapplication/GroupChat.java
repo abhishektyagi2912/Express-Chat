@@ -123,10 +123,4 @@ public class GroupChat extends Fragment implements ChatAdapter.OnUserClickListen
             socket.connect();
         }
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        socket.off("group-chat-list");
-    }
 }

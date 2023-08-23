@@ -69,7 +69,6 @@ public class MainChatActivity extends AppCompatActivity {
         }
 
         // add best animation
-        // Add a layout change listener to the RecyclerView
         binding.chatActivityRecycler.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
@@ -174,9 +173,6 @@ public class MainChatActivity extends AppCompatActivity {
                                     }
                                 });
                             }
-
-                            // Update UI with partner name
-//                            binding.chatUsername.setText(partnerName);
                         }
                     });
 
@@ -208,6 +204,7 @@ public class MainChatActivity extends AppCompatActivity {
                     if (args[0] instanceof JSONObject) {
                         // Access the "accessToken" field and log its value
                         JSONObject data = (JSONObject) args[0];
+                        Log.d("Mainactivity", "call: "+data);
                         try {
                             String ChatId = data.getString("ChatId");
                             String Msg = data.getString("Content");
@@ -222,7 +219,7 @@ public class MainChatActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     // Add the new message to the list and notify the adapter
-                                    messageList.add(0,message);
+                                    messageList.add(message);
                                     adapter.notifyItemInserted(messageList.size() - 1);
 
                                     // Scroll to the newly received message
@@ -326,7 +323,7 @@ public class MainChatActivity extends AppCompatActivity {
             public void call(Object... args) {
                 if (args.length > 0) {
                     JSONObject chatData  = (JSONObject) args[0];
-                    Log.d("Socket Data", "chat activity" + args[0].toString());
+                    Log.d("Socket Data", "chat activity" + chatData);
                     // Perform UI updates on the main thread
                     runOnUiThread(new Runnable() {
                         @Override
@@ -446,7 +443,50 @@ public class MainChatActivity extends AppCompatActivity {
         }
     }
 
+    // this function is not done
     private void handleGroupChat(JSONObject chatData) {
+        try {
+            JSONArray messagesArray = chatData.getJSONArray("Messages");
+            List<Message> newMessages = new ArrayList<>();
+
+            if (messagesArray.length() == 0) {
+                // No messages in the conversation, add a placeholder message if desired
+                // For example, add a message that says "No messages yet"
+                return;
+            }
+
+            for (int i = messagesArray.length() - 1; i >= 0; i--) {
+                JSONObject messageObject = messagesArray.getJSONObject(i);
+                String senderId = messageObject.getString("Sender");
+                String content = messageObject.getString("Content");
+                String timestamp = messageObject.getString("Timestamp");
+
+                boolean isSentByUser = senderId.equals(UserData.userId);
+
+                // Determine the layout resource based on the sender
+                int layoutResource = isSentByUser ? R.layout.chat_msg_system : R.layout.chat_recieve_system;
+
+                String time = timestamp.substring(11, 16);
+
+                Message message = new Message(senderId, content, time, isSentByUser, layoutResource);
+
+                // Only add the message if it's not already in the messageList
+                if (!isMessageInList(message)) {
+                    newMessages.add(message);
+                }
+            }
+
+            if (newMessages.size() > 0) {
+                // Add new messages to the list and notify adapter
+                messageList.addAll(0,newMessages);
+                adapter.notifyDataSetChanged();
+
+                // Scroll to the bottom, which is now the latest message
+                binding.chatActivityRecycler.smoothScrollToPosition(messageList.size() - 1);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 

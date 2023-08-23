@@ -122,31 +122,6 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
                 }
             });
 
-
-            // send self msgs
-
-//            JSONObject data = new JSONObject();
-//            try {
-//                data.put("Content","Yo brother");
-//            }catch (JSONException e){
-//                e.printStackTrace();
-//            }
-//            socket.emit("send-self-message", data);
-
-            // send req to fetch self chat
-//            socket.emit("fetch-self-chat",json body empty);
-
-            // fetch self chat
-//            socket.on("self-chat", new Emitter.Listener() {
-//                @Override
-//                public void call(Object... args) {
-//                    // direct chats
-//                    // comres in array form
-//                    data.getstring("Message");
-//                }
-//            });
-
-
             // here socket connect request is connect
             runOnUiThread(() -> onConnected(socket));
         } catch (IOException e) {
