@@ -40,4 +40,6 @@
     <string name="tod">TODO</string>
     <string name="start_the_chat_with_the_user">Start the chat with the user</string>
     <string name="start_chat">Start Chat</string>
+    <string name="splashscreen">SplashScreen</string>
+    <string name="express_chat">Express Chat</string>
 </resources>
