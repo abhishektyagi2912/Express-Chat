@@ -133,13 +133,11 @@ public class SignActivity extends AppCompatActivity {
                 Toast.makeText(this, "Already Exist", Toast.LENGTH_SHORT).show();
             } else if (apiResponse.getSuccess() == 1) {
                 // Signup successful, redirect to verification page
-//                int generatedOTP = apiResponse.getOtp();
                 Toast.makeText(this, "Otp sent successfully", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SignActivity.this, VerifyActivity.class);
                 intent.putExtra("email", email); // Assuming userEmail is the email used for verification
                 startActivity(intent);
                 finish();
-                startActivity(intent);
             } else if (apiResponse.getSuccess() == -1) {
                 // Handle other custom error responses from the server
                 Toast.makeText(this, "Not a valid email or name", Toast.LENGTH_SHORT).show();
