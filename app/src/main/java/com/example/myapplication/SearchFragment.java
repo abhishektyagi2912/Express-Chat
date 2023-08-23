@@ -60,28 +60,41 @@ public class SearchFragment extends Fragment implements UserRecyclerViewAdapter.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                JSONObject data = new JSONObject();
-                try {
-                data.put("Name",query);
-                data.put("Type","Search");
-                }catch (JSONException e){
-                e.printStackTrace();
+                if (!query.trim().isEmpty()) {  // Check if query is not empty or only whitespace
+                    JSONObject data = new JSONObject();
+                    try {
+                        data.put("Name", query);
+                        data.put("Type", "Search");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    socket.emit("search-user", data);
+                    call();
                 }
-                socket.emit("search-user", data);
-                call();
                 return true;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
-                JSONObject data = new JSONObject();
-                try {
-                    data.put("Name",newText);
-                    data.put("Type","Search");
-                }catch (JSONException e){
-                    e.printStackTrace();
+                if (newText != null && !newText.trim().isEmpty()) {  // Check if newText is not empty or only whitespace
+                    JSONObject data = new JSONObject();
+                    try {
+                        data.put("Name", newText);
+                        data.put("Type", "Search");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    socket.emit("search-user", data);
+                    call();
+                }else {
+                    // Clear the RecyclerView when query is empty
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            recyclerViewAdapter.updateData(new JSONArray());  // Update with empty data
+                        }
+                    });
                 }
-                socket.emit("search-user", data);
-                call();
                 return true;
             }
         });
@@ -105,11 +118,7 @@ public class SearchFragment extends Fragment implements UserRecyclerViewAdapter.
             public void call(Object... args) {
                 if (args[0] instanceof JSONObject) {
                     JSONObject userData = (JSONObject) args[0];
-                    Log.d("Socket Data", "Received data: " + args[0].toString());
-                    // Now you have the user data as a JSONObject
-                    // Handle the JSONObject according to your requirements
-
-                    // For example, you might want to extract user data and update the adapter
+//                    Log.d("Socket Data", "Received data: " + args[0].toString());
                     try {
                         JSONArray userArray = userData.getJSONArray("Users"); // Replace "users" with the actual key
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
