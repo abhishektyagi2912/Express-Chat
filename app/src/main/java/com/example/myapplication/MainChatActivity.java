@@ -204,7 +204,7 @@ public class MainChatActivity extends AppCompatActivity {
                     if (args[0] instanceof JSONObject) {
                         // Access the "accessToken" field and log its value
                         JSONObject data = (JSONObject) args[0];
-                        Log.d("Mainactivity", "call: "+data);
+                        Log.d("MainActivity", "call: "+data);
                         try {
                             String ChatId = data.getString("ChatId");
                             String Msg = data.getString("Content");
@@ -278,7 +278,8 @@ public class MainChatActivity extends AppCompatActivity {
             public void call(Object... args) {
                 if (args.length > 0) {
                     JSONObject chatData  = (JSONObject) args[0];
-//                    Log.d("Socket Data", "chat activity" + args[0].toString());
+//                    Log.d("Check", "call: " + UserData.userId);
+                    Log.d("Socket Data", "chat activity" + args[0].toString());
                     // Perform UI updates on the main thread
                     runOnUiThread(new Runnable() {
                         @Override

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.zegocloud.uikit.prebuilt.call.config.ZegoNotificationConfig;
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig;
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +53,7 @@ public class PersonalChat extends Fragment implements ChatAdapter.OnUserClickLis
     private void handleChatList(Object data, String jsonArrayKey) {
         if (data instanceof JSONObject) {
             JSONObject userData = (JSONObject) data;
-            Log.d("Personal Data", "Received data: " + data.toString());
+            Log.d("Personal Data", "Received data: " + userData);
 
             // Update the RecyclerView based on the received data
             try {

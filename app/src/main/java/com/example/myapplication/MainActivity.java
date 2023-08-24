@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,6 +30,9 @@ import android.webkit.CookieManager;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
+import com.zegocloud.uikit.prebuilt.call.config.ZegoNotificationConfig;
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig;
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -164,6 +168,20 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
 //                        Log.d("Socket",name);
 //                        Log.d("Socket",userId);
 
+                        Application application = getApplication(); // Android's application context
+                        long appID = 931545710;   // yourAppID
+                        String appSign ="2ea4b17f72b0d7537e9fd620152bb6ad477ae99aa7988982bc5f4f84d467d12a";  // yourAppSign
+                        String userID = userId; // yourUserID, userID should only contain numbers, English characters, and '_'.
+                        String userName = name;   // yourUserName
+
+                        ZegoUIKitPrebuiltCallInvitationConfig callInvitationConfig = new ZegoUIKitPrebuiltCallInvitationConfig();
+                        callInvitationConfig.notifyWhenAppRunningInBackgroundOrQuit = true;
+                        ZegoNotificationConfig notificationConfig = new ZegoNotificationConfig();
+                        notificationConfig.sound = "zego_uikit_sound_call";
+                        notificationConfig.channelID = "CallInvitation";
+                        notificationConfig.channelName = "CallInvitation";
+                        ZegoUIKitPrebuiltCallInvitationService.init(getApplication(), appID, appSign, userID, userName,callInvitationConfig);
+
                     } catch (JSONException e) {
                         // Handle JSON parsing error if necessary
                         Log.e("Socket.IO", "JSON parsing error: " + e.getMessage());
@@ -191,4 +209,9 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
         fragmentTransaction.commit();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ZegoUIKitPrebuiltCallInvitationService.unInit();
+    }
 }
