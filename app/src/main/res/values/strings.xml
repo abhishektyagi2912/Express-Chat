@@ -42,4 +42,5 @@
     <string name="start_chat">Start Chat</string>
     <string name="splashscreen">SplashScreen</string>
     <string name="express_chat">Express Chat</string>
+    <string name="profilelogout">profileLogout</string>
 </resources>

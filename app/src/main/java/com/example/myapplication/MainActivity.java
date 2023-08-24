@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,7 +30,6 @@ import android.webkit.CookieManager;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
                 replaceFragment(new HomeFragment());
             }else if (item.getItemId() == R.id.menu_search) {
                 replaceFragment(new SearchFragment());
-            }else if (item.getItemId() == R.id.menu_calls) {
-                replaceFragment(new CallFragment());
             }else if (item.getItemId() == R.id.menu_profile) {
                 replaceFragment(new ProfileFragment());
             }
@@ -127,13 +125,26 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
         } catch (IOException e) {
             runOnUiThread(() -> onConnectionError(e));
         }
+
+        socket.on("personal-chat-list", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                handleChatList(args[0], "PersonalChatList");
+            }
+        });
     }
 
+    private void handleChatList(Object data, String jsonArrayKey) {
+        if (data instanceof JSONObject) {
+            JSONObject userData = (JSONObject) data;
+            Log.d("Personal Data", "Received data: " + userData);
+        }
+    }
     @Override
     public void onConnected(Socket socket) {
         // Connection successful, do something with the socket
         this.socket = socket;
-        Toast.makeText(this, "Connected to server", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Connected to server", Toast.LENGTH_SHORT).show();
         // Use the 'socket' here or perform any other actions after successful connection
 
         //helper function to fetch user details
@@ -163,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
 //                        Log.d("Socket", email);
 //                        Log.d("Socket",name);
 //                        Log.d("Socket",userId);
-
                     } catch (JSONException e) {
                         // Handle JSON parsing error if necessary
                         Log.e("Socket.IO", "JSON parsing error: " + e.getMessage());
@@ -191,4 +201,8 @@ public class MainActivity extends AppCompatActivity implements SocketConnectionL
         fragmentTransaction.commit();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
