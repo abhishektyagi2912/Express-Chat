@@ -47,7 +47,7 @@ and you can also download the [app](https://github.com/abhishektyagi2912/Express
 
 ## API Documentation
 
-For API documentation and usage, refer to the [API Documentation]([link-to-your-api-docs](https://github.com/abhishektyagi2912/Express-Chat/blob/master/read.md)).
+For API documentation and usage, refer to the [API Documentation](https://github.com/abhishektyagi2912/Express-Chat/blob/master/read.md).
 
 ## Contributing
 
@@ -55,6 +55,6 @@ Contributions are welcome! Feel free to submit issues, suggest improvements, or 
 
 ## License
 
-This project is licensed under the [MIT License]([LICENSE](https://github.com/abhishektyagi2912/Express-Chat/blob/master/LICENSE)https://github.com/abhishektyagi2912/Express-Chat/blob/master/LICENSE).
+This project is licensed under the [MIT License](https://github.com/abhishektyagi2912/Express-Chat/blob/master/LICENSE).
 
 Happy chatting!
