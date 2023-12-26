@@ -35,7 +35,7 @@ and you can also download the [app]().
 
 ## Getting Started
 
-1. Clone the repository: `[git clone https://github.com/your-username/android-chat-app.git](https://github.com/abhishektyagi2912/Express-Chat.git)`
+1. Clone the repository
 
 2. Open the project in Android Studio.
 
@@ -47,7 +47,7 @@ and you can also download the [app]().
 
 ## API Documentation
 
-For API documentation and usage, refer to the [API Documentation](link-to-your-api-docs).
+For API documentation and usage, refer to the [API Documentation]([link-to-your-api-docs](https://github.com/abhishektyagi2912/Express-Chat/blob/master/read.md)).
 
 ## Contributing
 
@@ -55,6 +55,6 @@ Contributions are welcome! Feel free to submit issues, suggest improvements, or 
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License]([LICENSE](https://github.com/abhishektyagi2912/Express-Chat/blob/master/LICENSE)https://github.com/abhishektyagi2912/Express-Chat/blob/master/LICENSE).
 
 Happy chatting!
